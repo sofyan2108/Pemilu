@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pemilihan Suara</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #444;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .judul{
+      text-align: top;
+      font-size: 20;
+      color: #ffff;
+      justify-content: top  ;
+      margin : 10px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .candidates-column {
+      display: flex;
+    }
+
+    .column {
+      background-color: #666;
+      border-radius: 8px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+      margin: 10px;
+      padding: 10px;
+      text-align: center;
+      width: 300px; /* Sesuaikan lebar sesuai kebutuhan */
+      height: 400px;
+    }
+
+    h2 {
+      color: #ffffff;
+    }
+
+    .candidate-button{
+      background-color: #888;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;  
+      transition: background-color 0.3s;
+    }
+
+    .candidate-button:hover{
+      background-color: #777;
+      border: 2px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .decrease-button {
+      background-color: #dd5d5d;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .candidate-row {
+      display: flex;
+      justify-content: center ;
+      margin-bottom: 5px;
+    }
+    
+    .decrease-button:hover{
+      background-color: #ce4848;
+      box-shadow: 0 0 10px rgba(236, 215, 215, 0.3);
+    } 
+
+    .result-container {
+      margin-top: 25px;
+      font-size: 18px;
+      color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <!-- div class="judul">
+    <h1>Pemilihan Pengurus Inti JA 1445 H</h1>
+  </div -->
+
+  <div class="container">
+
+    <div class="candidates-column">
+      <div class="column">
+        <h2>Kandidat Laki-Laki</h2>
+        <div class="candidate-row">
+          <button class="candidate-button" onclick="voteCandidate('Candidate A')">Candidate A</button>
+          <button class="decrease-button" onclick="decreaseVote('Candidate A')"> - </button>
+        </div>
+      
+        <div class="candidate-row">
+          <button class="candidate-button" onclick="voteCandidate('Candidate B')">Candidate B</button>
+          <button class="decrease-button" onclick="decreaseVote('Candidate B')"> - </button>
+        </div>
+      
+        <div class="candidate-row">
+          <button class="candidate-button" onclick="voteCandidate('Candidate C')">Candidate C</button>
+          <button class="decrease-button" onclick="decreaseVote('Candidate C')"> - </button>
+        </div>
+      
+        <div class="candidate-row">
+          <button class="candidate-button" onclick="voteCandidate('Candidate D')">Candidate D</button>
+          <button class="decrease-button" onclick="decreaseVote('Candidate D')"> - </button>
+        </div>
+      
+        <div class="candidate-row">
+          <button class="candidate-button" onclick="voteCandidate('Candidate E')">Candidate E</button>
+          <button class="decrease-button" onclick="decreaseVote('Candidate E')"> - </button>
+        </div>
+      </div>
+      
+
+      <div class="column">
+        <h2>Kandidat Perempuan</h2>
+        <div class="candidate-row">
+          <button class="candidate-button" onclick="voteCandidate('Candidate F')">Candidate F</button>
+          <button class="decrease-button" onclick="decreaseVote('Candidate F')"> - </button>
+        </div>
+        
+        <div class="candidate-row">
+          <button class="candidate-button" onclick="voteCandidate('Candidate G')">Candidate G</button>
+          <button class="decrease-button" onclick="decreaseVote('Candidate G')"> - </button>
+        </div>
+
+        <div class="candidate-row">
+          <button class="candidate-button" onclick="voteCandidate('Candidate H')">Candidate H</button>
+          <button class="decrease-button" onclick="decreaseVote('Candidate H')"> - </button>
+        </div>
+
+        <div class="candidate-row">
+          <button class="candidate-button" onclick="voteCandidate('Candidate I')">Candidate I</button>
+          <button class="decrease-button" onclick="decreaseVote('Candidate I')"> - </button>
+        </div>
+
+        <div class="candidate-row">
+          <button class="candidate-button" onclick="voteCandidate('Candidate J')">Candidate J</button>
+          <button class="decrease-button" onclick="decreaseVote('Candidate J')"> - </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <h2>Hasil Laki-Laki</h2>
+      <div id="resultMale" class="result-container">Belum ada suara.</div>
+      <h2>Hasil Perempuan</h2>
+      <div id="resultFemale" class="result-container">Belum ada suara.</div>
+    </div>
+
+  </div>
+
+  <script>
+    var voteCount = {
+      'Candidate A': 0,
+      'Candidate B': 0,
+      'Candidate C': 0,
+      'Candidate D': 0,
+      'Candidate E': 0,
+      'Candidate F': 0,
+      'Candidate G': 0,
+      'Candidate H': 0,
+      'Candidate I': 0,
+      'Candidate J': 0,
+    };
+
+    function voteCandidate(candidate) {
+      voteCount[candidate]++;
+      updateResult();
+    }
+
+    function decreaseVote(candidate) {
+      if (voteCount[candidate] > 0) {
+        voteCount[candidate]--;
+        updateResult();
+      }
+    }
+
+    function updateResult() {
+      updateColumnResult('resultMale', ['Candidate A', 'Candidate B', 'Candidate C', 'Candidate D', 'Candidate E']);
+      updateColumnResult('resultFemale', ['Candidate F', 'Candidate G', 'Candidate H', 'Candidate I', 'Candidate J']);
+    }
+
+    function updateColumnResult(resultId, candidates) {
+      var resultElement = document.getElementById(resultId);
+      var sortedCandidates = candidates.sort(function(a, b) {
+        return voteCount[b] - voteCount[a];
+      });
+
+      var resultText = '';
+
+      sortedCandidates.forEach(function(candidate) {
+        resultText += candidate + ': ' + voteCount[candidate] + '<br>';
+      });
+
+      resultElement.innerHTML = resultText;
+    }
+  </script>
+</body>
+</html>
